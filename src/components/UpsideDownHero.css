@@ -1,0 +1,112 @@
+/* Upside Down Hero Section - Stranger Things Inspired */
+
+.hero {
+    position: relative;
+    height: 100vh;
+    overflow: hidden;
+    background: #000000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Background Image */
+.hero-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+    filter: brightness(0.7) contrast(1.2);
+    transition: opacity 0.6s ease-in-out;
+}
+
+/* Portal Button - Fixed on right side of screen */
+.portal-btn {
+    position: fixed;
+    top: 50%;
+    right: 30px;
+    transform: translateY(-50%) rotate(180deg);
+    background: transparent;
+    border: 2px solid #b1060f;
+    color: #b1060f;
+    padding: 14px 30px;
+    font-family: 'Bebas Neue', 'Impact', sans-serif;
+    font-size: 1.2rem;
+    letter-spacing: 4px;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    font-weight: 700;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.portal-btn:hover {
+    box-shadow:
+        0 0 25px #ff2a2a,
+        0 0 50px rgba(255, 42, 42, 0.5),
+        inset 0 0 20px rgba(177, 6, 15, 0.3);
+    border-color: #ff2a2a;
+    color: #ff2a2a;
+    transform: translateY(-50%) rotate(180deg) scale(1.05);
+}
+
+.portal-btn:active {
+    transform: translateY(-50%) rotate(180deg) scale(0.95);
+}
+
+/* Upside Down Animation */
+.upside-down {
+    animation: flipWorld 1.4s ease-in-out forwards;
+}
+
+@keyframes flipWorld {
+    0% {
+        transform: scaleY(1);
+        filter: hue-rotate(0deg) brightness(1);
+    }
+
+    50% {
+        filter: hue-rotate(110deg) brightness(0.5);
+    }
+
+    100% {
+        transform: scaleY(-1);
+        filter: hue-rotate(220deg) brightness(0.8);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .hero {
+        height: 70vh;
+    }
+
+    .portal-btn {
+        right: 20px;
+        padding: 12px 24px;
+        font-size: 1rem;
+        letter-spacing: 3px;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero {
+        height: 60vh;
+    }
+
+    .portal-btn {
+        right: 15px;
+        padding: 10px 20px;
+        font-size: 0.9rem;
+        letter-spacing: 2px;
+    }
+}
+
+/* Ensure smooth transitions */
+* {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}

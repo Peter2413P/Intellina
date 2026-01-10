@@ -1,0 +1,57 @@
+.nav-bar {
+  display: flex;
+  justify-content: space-around;
+  padding: 20px;
+  background: black;
+  border-bottom: 2px solid red;
+  box-shadow: 0 0 25px red;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.nav-link {
+  font-size: 18px;
+  color: #ff3333;
+  text-decoration: none;
+  position: relative;
+  padding: 10px 20px;
+  transition: 0.4s ease;
+  text-shadow: 0 0 5px red;
+}
+
+/* Neon underline */
+.nav-link::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: red;
+  transition: 0.4s ease;
+  transform: translateX(-50%);
+  box-shadow: 0 0 10px red;
+}
+
+/* Hover = portal open */
+.nav-link:hover {
+  color: white;
+  text-shadow: 0 0 10px red, 0 0 25px red;
+  transform: scale(1.2);
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+/* Flicker animation */
+@keyframes flicker {
+  0% { opacity: 1; }
+  50% { opacity: 0.7; }
+  100% { opacity: 1; }
+}
+
+.nav-link:hover {
+  animation: flicker 0.15s infinite;
+}

@@ -1,0 +1,97 @@
+/* Global Effects Layer - Fixed to Viewport */
+
+#global-effects {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 5;
+    overflow: hidden;
+}
+
+/* Ensure all child effects stretch fully */
+#global-effects>* {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* Fog overlay that intensifies on scroll */
+#global-effects::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 40%;
+    background: linear-gradient(to top, rgba(11, 11, 11, 0.8), transparent);
+    z-index: 10;
+    pointer-events: none;
+    opacity: var(--fog-intensity, 0.6);
+    transition: opacity 0.3s ease;
+}
+
+/* Ambient red glow */
+#global-effects::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    height: 80%;
+    background: radial-gradient(circle, rgba(177, 6, 15, 0.15) 0%, transparent 70%);
+    z-index: 1;
+    pointer-events: none;
+    animation: ambientPulse 4s ease-in-out infinite;
+}
+
+@keyframes ambientPulse {
+
+    0%,
+    100% {
+        opacity: 0.5;
+        transform: translate(-50%, -50%) scale(1);
+    }
+
+    50% {
+        opacity: 0.8;
+        transform: translate(-50%, -50%) scale(1.1);
+    }
+}
+
+/* Upside Down State - Apply to entire effects layer */
+body.upside-down-active #global-effects {
+    animation: flipEffects 1.4s ease-in-out forwards;
+}
+
+@keyframes flipEffects {
+    0% {
+        transform: scaleY(1);
+        filter: hue-rotate(0deg) brightness(1);
+    }
+
+    50% {
+        filter: hue-rotate(110deg) brightness(0.5);
+    }
+
+    100% {
+        transform: scaleY(-1);
+        filter: hue-rotate(220deg) brightness(0.8);
+    }
+}
+
+/* Blue/Purple fog in Upside Down */
+body.upside-down-active #global-effects::before {
+    background: linear-gradient(to top, rgba(10, 10, 26, 0.9), transparent);
+    transition: background 1.4s ease-in-out;
+}
+
+/* Blue ambient glow in Upside Down */
+body.upside-down-active #global-effects::after {
+    background: radial-gradient(circle, rgba(74, 144, 226, 0.2) 0%, rgba(107, 92, 231, 0.1) 50%, transparent 70%);
+    transition: background 1.4s ease-in-out;
+}

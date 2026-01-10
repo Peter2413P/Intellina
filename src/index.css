@@ -1,0 +1,48 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --neon-red: #e10600;
+  --electric-blue: #00b3ff;
+  --ember-orange: #ff4b1f;
+  --dark-bg: #0a0203;
+}
+
+.stranger-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: clamp(4rem, 12vw, 10rem);
+  color: #ff2a1a;
+  text-align: center;
+  position: relative;
+  text-shadow:
+    0 0 5px #ff2a1a,
+    0 0 10px #ff2a1a,
+    0 0 20px #ff2a1a,
+    0 0 40px #ff0000,
+    0 0 80px #ff0000;
+}
+
+.stranger-logo::before {
+  content: "";
+  position: absolute;
+  inset: -20px;
+  border-top: 4px solid #ff2a1a;
+  border-bottom: 4px solid #ff2a1a;
+  box-shadow:
+    0 0 10px #ff2a1a,
+    0 0 30px #ff2a1a;
+}
+
+.stranger-sub {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 3rem;
+  letter-spacing: 0.4em;
+  color: #ff2a1a;
+  text-shadow:
+    0 0 5px #ff2a1a,
+    0 0 20px #ff2a1a;
+  margin-top: 30px;
+}

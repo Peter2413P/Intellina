@@ -1,0 +1,203 @@
+/* DualRealityTransition.css */
+
+/* Global Transition Variables */
+:root {
+    --transition-duration: 1.6s;
+    --phase-destabilize: 0.4s;
+    --phase-flip: 0.7s;
+    --phase-stabilize: 0.5s;
+    --color-upside-down: #0a1120;
+    --color-reality: #ffffff;
+    --glow-cyan: rgba(0, 255, 255, 0.6);
+    --glow-red: rgba(177, 6, 15, 0.6);
+}
+
+/* Container for transition overlay effects */
+.dual-reality-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 9999;
+    mix-blend-mode: overlay;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+/* 
+   ----------------------------------------
+   PHASE 2: DESTABILIZATION (0.0s - 0.4s)
+   ---------------------------------------- 
+*/
+
+.transition-destabilizing body {
+    animation: shake-vertical 0.1s infinite;
+}
+
+.transition-destabilizing .dual-reality-overlay {
+    opacity: 1;
+    background: linear-gradient(rgba(0, 255, 255, 0.1),
+            transparent 20%,
+            transparent 80%,
+            rgba(177, 6, 15, 0.1));
+    animation: chromatic-pulse 0.1s infinite;
+}
+
+@keyframes shake-vertical {
+
+    0%,
+    100% {
+        transform: translateY(0);
+        filter: blur(0px);
+    }
+
+    25% {
+        transform: translateY(-1px);
+        filter: blur(1px);
+    }
+
+    75% {
+        transform: translateY(1px);
+        filter: blur(0.5px);
+    }
+}
+
+@keyframes chromatic-pulse {
+    0% {
+        transform: scale(1);
+        filter: hue-rotate(0deg);
+    }
+
+    50% {
+        transform: scale(1.02);
+        filter: hue-rotate(90deg);
+    }
+
+    100% {
+        transform: scale(1);
+        filter: hue-rotate(0deg);
+    }
+}
+
+/* 
+   ----------------------------------------
+   PHASE 3: WORLD FLIP (0.4s - 1.1s)
+   ----------------------------------------
+   The Core Flip. We rotate the entire page container.
+*/
+
+.transition-flipping .members-container {
+    animation: world-flip 0.7s cubic-bezier(0.4, 0.0, 0.2, 1) forwards;
+    transform-style: preserve-3d;
+    will-change: transform;
+    /* Hardware acceleration */
+}
+
+/* Reverse flip when going back to reality */
+.transition-flipping.returning .members-container {
+    animation: world-flip-back 0.7s cubic-bezier(0.4, 0.0, 0.2, 1) forwards;
+}
+
+@keyframes world-flip {
+    0% {
+        transform: perspective(1000px) rotateZ(0deg) scale(1);
+        filter: brightness(1);
+        /* Removed blur for performance */
+    }
+
+    50% {
+        /* Mid-flip: darkened */
+        transform: perspective(1000px) rotateZ(180deg) scale(0.6);
+        filter: brightness(0.5);
+        /* Removed blur */
+    }
+
+    100% {
+        /* Landed upright (360 rotation) */
+        transform: perspective(1000px) rotateZ(360deg) scale(1);
+        filter: brightness(0.8);
+    }
+}
+
+@keyframes world-flip-back {
+    0% {
+        transform: perspective(1000px) rotateZ(360deg) scale(1);
+        filter: brightness(0.8);
+    }
+
+    50% {
+        transform: perspective(1000px) rotateZ(180deg) scale(0.6);
+        filter: brightness(0.5);
+    }
+
+    100% {
+        transform: perspective(1000px) rotateZ(0deg) scale(1);
+        filter: brightness(1);
+    }
+}
+
+/* During flip, member cards detach and float */
+.transition-flipping .flip-card-container {
+    transition: transform 0.5s ease;
+    transform: translateZ(50px) scale(0.9);
+    pointer-events: none;
+}
+
+/* 
+   ----------------------------------------
+   PHASE 4: STABILIZATION (1.1s - 1.6s)
+   ----------------------------------------
+*/
+
+.transition-stabilizing .dual-reality-overlay {
+    background: radial-gradient(circle at center, transparent 0%, rgba(0, 10, 30, 0.8) 100%);
+    opacity: 1;
+    animation: fog-settle 0.5s ease-out forwards;
+}
+
+@keyframes fog-settle {
+    from {
+        opacity: 0;
+        transform: scale(1.1);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* 
+   ----------------------------------------
+   FINAL STATE: UPSIDE DOWN
+   ----------------------------------------
+*/
+
+/* 
+   Inverted World Physics
+   Note: We use scaleY(-1) on the container to flip geometry,
+   BUT we must un-flip text/content so it's readable.
+   Alternatively, since we did rotateX(180deg) in the animation,
+   the final state is technically rotated.
+   
+   To keep it simple and consistent with existing code (which might use scaleY),
+   we'll enforce a consistent transform on the container.
+*/
+
+body.upside-down-active .members-container {
+    /* Ensure persistent state fits the animation end state (Upright) */
+    transform: none;
+}
+
+/* 
+   Specific tweaks for the upside down look
+   particles, fog, etc. handled by overlays and PixelSnow
+*/
+
+body.upside-down-active {
+    background-color: #050510;
+    overflow-x: hidden;
+    /* Prevent scrollbar issues during rotation */
+}

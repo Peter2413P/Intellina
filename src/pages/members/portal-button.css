@@ -1,0 +1,132 @@
+/* Fixed Portal Button - Circular design on right side */
+.portal-btn-fixed {
+    position: fixed;
+    top: 50%;
+    right: 20px;
+    /* Adjusted slightly closer to edge for better 'fixed' feel */
+    transform: translateY(-50%);
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.7);
+    border: 3px solid #b1060f;
+    color: #b1060f;
+    font-family: 'Bebas Neue', 'Impact', sans-serif;
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+    cursor: pointer;
+    z-index: 999;
+    /* Ensure button is click-able and bright */
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    font-weight: 700;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(10px);
+}
+
+.portal-btn-fixed:hover {
+    background: rgba(177, 6, 15, 0.2);
+    border-color: #ff2a2a;
+    color: #ff2a2a;
+    box-shadow:
+        0 0 30px #ff2a2a,
+        0 0 60px rgba(255, 42, 42, 0.5),
+        inset 0 0 30px rgba(177, 6, 15, 0.3);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.portal-btn-fixed:active {
+    transform: translateY(-50%) scale(0.95);
+}
+
+/* Pulse Animation */
+@keyframes portal-pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(177, 6, 15, 0.4);
+    }
+
+    70% {
+        box-shadow: 0 0 0 20px rgba(177, 6, 15, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(177, 6, 15, 0);
+    }
+}
+
+@keyframes button-distort {
+    0% {
+        transform: translateY(-50%) skew(0deg);
+    }
+
+    20% {
+        transform: translateY(-50%) skew(-10deg);
+        filter: blur(2px);
+    }
+
+    40% {
+        transform: translateY(-50%) skew(10deg);
+        filter: blur(0px);
+    }
+
+    60% {
+        transform: translateY(-50%) skew(-5deg);
+    }
+
+    100% {
+        transform: translateY(-50%) skew(0deg);
+    }
+}
+
+.portal-btn-fixed.locked {
+    pointer-events: none;
+    opacity: 0.8;
+    animation: button-distort 0.4s ease-out, portal-pulse 1s infinite;
+    border-color: #fff;
+    color: #fff;
+}
+
+/* Upside Down state - change to blue */
+body.upside-down-active .portal-btn-fixed {
+    border-color: #4a90e2;
+    color: #4a90e2;
+}
+
+body.upside-down-active .portal-btn-fixed:hover {
+    border-color: #6b5ce7;
+    color: #6b5ce7;
+    box-shadow:
+        0 0 30px #4a90e2,
+        0 0 60px rgba(74, 144, 226, 0.5),
+        inset 0 0 30px rgba(107, 92, 231, 0.3);
+}
+
+body.upside-down-active .portal-btn-fixed.locked {
+    animation: button-distort 0.4s ease-out, portal-pulse 1s infinite;
+    box-shadow: 0 0 20px cyan;
+    /* Cyan pulse for upside down */
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .portal-btn-fixed {
+        right: 20px;
+        width: 70px;
+        height: 70px;
+        font-size: 0.8rem;
+        letter-spacing: 1.5px;
+    }
+}
+
+@media (max-width: 480px) {
+    .portal-btn-fixed {
+        right: 15px;
+        width: 60px;
+        height: 60px;
+        font-size: 0.7rem;
+        letter-spacing: 1px;
+    }
+}

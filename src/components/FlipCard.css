@@ -1,0 +1,232 @@
+/* =========================================
+   STRANGER THINGS CARD DESIGN
+   ========================================= */
+
+/* Theme Variables - Default (Real World/Red) */
+:root {
+    --card-primary: #ff2a2a;
+    --card-secondary: #7b0000;
+    --card-shadow: rgba(255, 0, 0, 0.25);
+    --card-bg-gradient-1: #ff2a2a;
+    --card-bg-gradient-2: #5b0000;
+    --card-bg-gradient-3: #050000;
+    --card-text-glow: rgba(255, 0, 0, 0.6);
+    --card-accent: #ff4d4d;
+    --card-details-bg: #130000;
+    --card-details-text: #ff8a8a;
+}
+
+/* Upside Down Theme Variables (Blue/Cold) */
+.upside-down-theme {
+    --card-primary: #4a90e2;
+    --card-secondary: #004e92;
+    --card-shadow: rgba(74, 144, 226, 0.25);
+    --card-bg-gradient-1: #4a90e2;
+    --card-bg-gradient-2: #002b5e;
+    --card-bg-gradient-3: #05001a;
+    --card-text-glow: rgba(74, 144, 226, 0.6);
+    --card-accent: #6b5ce7;
+    --card-details-bg: #0a0a1a;
+    --card-details-text: #a0c4ff;
+}
+
+/* Base Card Container */
+.flip-card-container {
+    perspective: 1000px;
+    width: 300px;
+    /* Slightly wider than original for better layout */
+    margin: 0 auto;
+}
+
+/* CARD */
+.st-card {
+    position: relative;
+    width: 100%;
+    height: 400px;
+    background: #050000;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow:
+        0 0 40px var(--card-shadow),
+        inset 0 0 40px rgba(0, 0, 0, 0.5);
+    transition: 0.4s ease;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.upside-down-theme .st-card {
+    background: #000510;
+    border-color: rgba(74, 144, 226, 0.1);
+}
+
+/* ORGANIC BLOOD / PLASMA BG */
+.st-card-bg {
+    position: absolute;
+    top: -70%;
+    left: -40%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at 30% 30%, var(--card-bg-gradient-1), var(--card-bg-gradient-2) 60%, var(--card-bg-gradient-3) 75%);
+    border-radius: 45%;
+    filter: blur(20px);
+    /* Increased blur for smoother look */
+    transition: 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 0.7;
+}
+
+/* PROFILE IMAGE / ICON */
+.st-product-img {
+    position: absolute;
+    width: 140px;
+    /* Adjusted size for profile icon */
+    height: 140px;
+    top: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: 0.5s ease;
+    z-index: 2;
+    filter: drop-shadow(0 0 18px var(--card-shadow));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--card-primary);
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 50%;
+    border: 2px solid var(--card-primary);
+}
+
+.st-product-img svg {
+    width: 80%;
+    height: 80%;
+    filter: drop-shadow(0 0 5px var(--card-primary));
+}
+
+/* CONTENT */
+.st-content {
+    position: absolute;
+    bottom: 25px;
+    width: 100%;
+    text-align: center;
+    z-index: 3;
+    padding: 0 15px;
+}
+
+.st-content h2 {
+    color: var(--card-accent);
+    letter-spacing: 2px;
+    text-shadow: 0 0 12px var(--card-text-glow);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+}
+
+/* DETAILS SECTION */
+.st-details {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ROLE / SIZES TAGS */
+.st-role-container {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+}
+
+.st-role-tag {
+    display: inline-block;
+    padding: 5px 12px;
+    background: var(--card-details-bg);
+    border: 1px solid var(--card-primary);
+    border-radius: 6px;
+    font-size: 0.8rem;
+    color: var(--card-details-text);
+    font-family: 'Roboto', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+/* DESCRIPTION */
+.st-description {
+    font-size: 0.85rem;
+    color: #ccc;
+    margin: 10px 0 15px;
+    line-height: 1.4;
+    max-height: 0;
+    /* Hidden initially */
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+    text-shadow: 0 1px 2px black;
+    opacity: 0.9;
+}
+
+/* HOVER STATES - GATE OPENS */
+.st-card:hover .st-card-bg {
+    top: -40%;
+    /* Move down slightly less than original to keep dark bottom */
+    filter: blur(15px);
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+.st-card:hover .st-product-img {
+    top: 25px;
+    /* Slide up */
+    transform: translateX(-50%) scale(0.8);
+    /* Shrink slightly */
+    border-color: #fff;
+    color: #fff;
+    filter: drop-shadow(0 0 25px var(--card-primary));
+}
+
+.st-card:hover .st-content {
+    bottom: 35px;
+}
+
+.st-card:hover .st-details {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.st-card:hover .st-description {
+    max-height: 100px;
+    margin-bottom: 15px;
+}
+
+.st-card:hover {
+    box-shadow:
+        0 0 60px var(--card-shadow),
+        inset 0 0 60px rgba(0, 0, 0, 0.3);
+    transform: translateY(-10px);
+    z-index: 10;
+}
+
+/* BUTTON */
+.st-btn {
+    padding: 8px 24px;
+    border: none;
+    background: linear-gradient(90deg, var(--card-primary), var(--card-secondary));
+    color: white;
+    border-radius: 20px;
+    cursor: pointer;
+    box-shadow: 0 0 15px var(--card-shadow);
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s ease;
+}
+
+.st-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 25px var(--card-primary);
+    color: #fff;
+}

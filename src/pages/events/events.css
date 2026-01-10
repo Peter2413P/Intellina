@@ -1,0 +1,70 @@
+.event-grid {
+  display: flex;
+  gap: 50px;
+  margin-top: 80px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* Container */
+.event-card {
+  width: 320px;
+  height: 240px;
+  perspective: 1000px;
+  text-decoration: none;
+}
+
+/* Inner 3D */
+.event-inner {
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at top, #150305, #000);
+  border-radius: 16px;
+  padding: 30px;
+  border: 2px solid red;
+  transform-style: preserve-3d;
+  transition: 0.2s ease;
+  box-shadow: 0 0 30px rgba(255,0,0,.6);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+
+.event-card:hover .event-inner {
+  box-shadow: 
+    0 0 80px rgba(255,0,0,.9),
+    0 0 40px rgba(0,180,255,.6);
+}
+
+.event-card:active .event-inner {
+  transform: scale(.95);
+}
+
+.event-inner h2 {
+  font-size: 28px;
+  text-shadow: 0 0 15px red;
+}
+
+.event-inner p {
+  color: #aaa;
+  text-align: center;
+  margin-top: 10px;
+}
+
+/* Theme colors */
+.tech .event-inner {
+  border-color: cyan;
+  box-shadow: 0 0 40px cyan;
+}
+
+.nontech .event-inner {
+  border-color: hotpink;
+  box-shadow: 0 0 40px hotpink;
+}
+
+.flagship .event-inner {
+  border-color: red;
+  box-shadow: 0 0 50px red;
+}
