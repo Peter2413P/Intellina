@@ -3,8 +3,10 @@ import FlipCard from '../../components/FlipCard';
 import GlobalEffects from '../../components/effects/GlobalEffects';
 import DualRealityTransition from '../../components/effects/DualRealityTransition';
 import PixelSnow from '../../components/reactbits/PixelSnow';
+import SplashCursor from '../../components/reactbits/SplashCursor';
+import D20 from '../../components/D20/D20';
 import "./members.css";
-import "./portal-button.css";
+
 
 export default function Members() {
     const [isUpsideDown, setIsUpsideDown] = useState(false);
@@ -148,18 +150,23 @@ export default function Members() {
                 enabled={isUpsideDown}
             />
 
+            {/* Splash Cursor - Only in Upside Down mode */}
+            {isUpsideDown && (
+                <SplashCursor
+                />
+            )}
+
             {/* Portal Button - Fixed on right side */}
-            <button
-                className={`portal-btn-fixed ${isFlipping ? 'locked' : ''}`}
+            {/* D20 Toggle Button */}
+            <D20
                 onClick={toggleUpsideDown}
-                disabled={isFlipping}
-                aria-label={isUpsideDown ? "Enter Reality" : "Enter Upside Down"}
-            >
-                {isUpsideDown ? "REALITY" : "VECNA"}
-            </button>
+                isUpsideDown={isUpsideDown}
+            />
 
             <div className={`members-container ${isFlipping ? 'flipping' : ''}`}>
                 <div className="noise-overlay"></div>
+
+
 
                 <header className="page-header scroll-hidden">
                     <h1 className="main-title">INTELLINA – EVENT TEAM</h1>
