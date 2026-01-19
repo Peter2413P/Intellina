@@ -145,6 +145,7 @@ export default function Members() {
                 variant="round"
                 direction={180} // Reverse gravity logic
                 className={`upside-down-snow ${isUpsideDown ? 'visible' : ''}`}
+                enabled={isUpsideDown}
             />
 
             {/* Portal Button - Fixed on right side */}

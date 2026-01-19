@@ -1,0 +1,52 @@
+UNUSED FILES REPORT
+Generated on: 2026-01-11
+
+The following files have been identified as unused or replaced in the current version of the Intellina Website (Members Page Optimization Refactor).
+
+--------------------------------------------------------------------------------
+1. COMPONENT: MagicBento
+--------------------------------------------------------------------------------
+Files:
+- src/components/MagicBento.js
+- src/components/MagicBento.css
+
+Reason for Removal:
+This component was the original implementation for the layout. It has been entirely replaced by the `FlipCard` based grid in `Members.js` to support better performance and the new design requirements. The styles are no longer imported.
+
+--------------------------------------------------------------------------------
+2. COMPONENT: UpsideDownHero
+--------------------------------------------------------------------------------
+Files:
+- src/components/UpsideDownHero.js
+- src/components/UpsideDownHero.css
+
+Reason for Removal:
+The "Upside Down" header logic has been moved directly into `Members.js` (using `StrangerTitle`) to allow for tighter integration with the state (flicker effects, world switching) and better performance control.
+
+--------------------------------------------------------------------------------
+3. COMPONENT: InteractiveMemberCard (Legacy)
+--------------------------------------------------------------------------------
+Files:
+- src/pages/members/InteractiveMemberCard.js
+
+Reason for Removal:
+This was an earlier, heavier iteration of the member card with complex mouse tracking and particle effects. It has been superseded by `FlipCard.js` (and `FlipCard.css`), which implements optimized versions of these effects (or disables them on low-end devices).
+
+--------------------------------------------------------------------------------
+4. EFFECT: DualRealityTransition
+--------------------------------------------------------------------------------
+Files:
+- src/components/effects/DualRealityTransition.js
+- src/components/effects/DualRealityTransition.css
+
+Reason for Removal:
+The transition effect between worlds is now handled by `BlackHoleTransition.js` and the CSS transitions in `members.css`. This file is no longer imported or used.
+
+--------------------------------------------------------------------------------
+5. STYLE: Portal Button
+--------------------------------------------------------------------------------
+Files:
+- src/pages/members/portal-button.css
+
+Reason for Removal:
+The portal button was replaced by the `MagicalDie` component. The styles in this file are for the old HTML button and are no longer applied to any element.

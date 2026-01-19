@@ -55,11 +55,15 @@ body.upside-down-active .members-container::after {
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+    /* Optimized noise using a smaller pattern or simply forcing GPU */
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
     pointer-events: none;
     z-index: 1;
     /* Kept low */
     opacity: 0.4;
+    /* Performance: Promote to own layer */
+    transform: translateZ(0);
+    will-change: opacity;
 }
 
 /* Page Header */
@@ -258,7 +262,8 @@ body.upside-down-active .members-container::after {
 .scroll-hidden {
     opacity: 0;
     transform: translateY(100px);
-    transition: all 0.1s;
+    transition: opacity 0.1s, transform 0.1s;
+    will-change: opacity, transform;
 }
 
 @keyframes fadeInUpBig {

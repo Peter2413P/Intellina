@@ -1,0 +1,55 @@
+/* BlackHoleTransition.css */
+
+/* Sucking Effect */
+body.blackhole-sucking .members-container,
+body.blackhole-sucking .navbar,
+/* Optional: Suck navbar too */
+body.blackhole-sucking .hero {
+    animation: suckIntoBlackHole 1.5s cubic-bezier(0.55, 0.055, 0.675, 0.19) forwards;
+    transform-origin: center center;
+    pointer-events: none;
+}
+
+@keyframes suckIntoBlackHole {
+    0% {
+        transform: rotate(0deg) scale(1);
+        opacity: 1;
+        filter: blur(0px);
+    }
+
+    100% {
+        transform: rotate(720deg) scale(0.01);
+        opacity: 0;
+        filter: blur(3px);
+    }
+}
+
+/* Expelling Effect */
+body.blackhole-expelling .members-container,
+body.blackhole-expelling .navbar,
+body.blackhole-expelling .hero {
+    animation: expelFromBlackHole 1.5s cubic-bezier(0.215, 0.61, 0.355, 1) forwards;
+    transform-origin: center center;
+}
+
+@keyframes expelFromBlackHole {
+    0% {
+        transform: rotate(-720deg) scale(0.01);
+        opacity: 0;
+        filter: blur(3px);
+    }
+
+    100% {
+        transform: rotate(0deg) scale(1);
+        opacity: 1;
+        filter: blur(0px);
+    }
+}
+
+/* Ensure body doesn't clip during rotation if possible, though scale=0 fixes most overflow */
+body.blackhole-sucking,
+body.blackhole-expelling {
+    overflow: hidden;
+    background: black;
+    /* Flash black during the singularity */
+}
